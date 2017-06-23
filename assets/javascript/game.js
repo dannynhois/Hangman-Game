@@ -1,5 +1,24 @@
 //set up variables
-var currentWord = "James Harden";
+var playerList = [
+{
+	name:"Ryan Anderson",
+	picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201583.png"
+},
+{name:"Ryan Anderson",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201583.png"},{name:"Trevor Ariza",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2772.png"},{name:"Patrick Beverley",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201976.png"},{name:"Bobby Brown",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201628.png"},{name:"Clint Capela",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203991.png"},{name:"Sam Dekker",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626155.png"},{name:"Eric Gordon",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201569.png"},{name:"James Harden",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201935.png"},{name:"Montrezl Harrell",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626149.png"},{name:"Isaiah Hartenstein",picture:"http://stats.nba.com/media/img/no-headshot_small.png"},{name:"Nene ",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2403.png"},{name:"Chinanu Onuaku",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627778.png"},{name:"Isaiah Taylor",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627819.png"},{name:"Lou Williams",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/101150.png"},{name:"Troy Williams",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627786.png"},{name:"Kyle Wiltjer",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627787.png"}];
+
+// var playerList =[
+// 	"James Harden",
+// 	"Yao Ming",
+// 	"Hakeem Olajuwon",
+// 	"Scottie Pippen",
+// 	"Moses Malone",
+// 	"Clyde Drexler",
+// 	"Moochie Norris",
+// 	"Charles Barkley",
+// 	"Tracy McGrady",
+// 	"Calvin Murphy",
+// ];
+var currentWord = ""
 var currentGuess = "";
 var numOfGuessLeft = 12;
 var lettersGuessed = [];
@@ -7,37 +26,49 @@ var gameOver = true;
 var wins = 0;
 var guessAllLettersInWord = false;
 var endGameMessage = "";
+var player;
 
 //DOM variables
 document.onkeyup = checkKeyPress;
 var main = document.getElementById("main");
+var docLetter = document.getElementById("letters");
 var docWins = document.getElementById("wins");
+var docGuesses = document.getElementById("guesses");
+var docMessage = document.getElementById("message");
 
-newGame();
+// newGame();
 
 //set up new game
 function newGame (){
 	gameOver = false;
-	currentWord = currentWord.toLowerCase();
-	numOfGuessLeft = 12;
+	//select random player
+	player = playerList[Math.floor(Math.random()*playerList.length)];
+	currentWord = player.name.toLowerCase()
+	numOfGuessLeft = 8;
 	lettersGuessed = [];
 	guessAllLettersInWord = false;
-	endGameMessage = "";
+	docMessage.innerHTML = "&nbsp";
+	updateCurrentGuess();
 	updateScreen();
 }
 
 //when the user presses a key
 function checkKeyPress(event) {
-	//if the game is over then start a new a game
-	if(gameOver){
-		console.log("new game");
-		return newGame();
+	//press space to start new game
+	if(event.keyCode ===32){
+		//if the game is over then start a new a game
+		if(gameOver){
+			console.log("new game");
+			return newGame();
+		}
 	}
-	//if keypress is alphanumeric then check letter
-	console.log(event.keyCode)
-	if(event.keyCode >= 65 && event.keyCode <= 90){
-		console.log("check letter");
-		checkLetter(event.key.toLowerCase());
+	
+	if(!gameOver){
+		//if keypress is alphanumeric then check letter
+		if(event.keyCode >= 65 && event.keyCode <= 90){
+			// console.log("check letter");
+			checkLetter(event.key.toLowerCase());
+		}
 	}
 }
 
@@ -61,13 +92,13 @@ function checkLetter(letter){
 	});
 
 	updateGameStatus();
-
 	updateCurrentGuess();
 	updateScreen();
 }
 
 function updateCurrentGuess(){
 	currentGuess = "";
+	//loop through current word and show letters for any letters guessed
 	currentWord.split("").forEach(function(letter){
 		//if space add space
 		if(letter === ' '){
@@ -80,30 +111,27 @@ function updateCurrentGuess(){
 			currentGuess += '_ ';
 		}
 	})
-	console.log("Current guess is: " + currentGuess);
+	// console.log("Current guess is: " + currentGuess);
 };
 
 function updateScreen(){
-	var html ="";
-
 	if(gameOver){
-		html = endGameMessage + "<p>Press any key to start</p>";
+		docMessage.innerHTML = endGameMessage ;
 	}
 
 	//show total wins
 	docWins.innerHTML =  "<strong>Wins:</strong> " + wins;
 
 	//show numOf Guess
-	html = html + "<p>Number of guesses left: " + numOfGuessLeft + "</p>";
+	docGuesses.innerHTML = "<strong>Guesses left:</strong> " + numOfGuessLeft;
 	
+	var html ="";
 	//show word
-	html = html + "<p>Current Word: </p><p>" + currentGuess + "</p>";
+	main.innerHTML = "<p>" + currentGuess + "</p>";
 
 	//show guesses
-	html = html + "<p>Letters: </p><p>" + lettersGuessed + "</p>";
+	docLetter.innerHTML= "<p>" + lettersGuessed.sort() + "</p>";
 
-	//update screen
-	main.innerHTML = html;
 }
 
 //check if win or loss and set status accordingly
@@ -111,11 +139,11 @@ function updateGameStatus(){
 	if(guessAllLettersInWord){
 		wins++;
 		gameOver = true;
-		endGameMessage = "<h1> Winner winner chicken dinner! </h1>"
+		endGameMessage = "<h1> Winner winner chicken dinner! </h1><img src='"+ player.picture + "''><br>" + currentWord.toUpperCase();
 	}
 	if(numOfGuessLeft===0){
 		gameOver = true;
-		endGameMessage = "<h1> You lost. Try again </h1>";
+		endGameMessage = "<h1> You lost. Try again </h1> <img src='"+ player.picture + "''><br>Correct Answer: " + currentWord.toUpperCase();
 	}
 }
 

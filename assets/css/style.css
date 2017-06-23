@@ -1,3 +1,24 @@
 div {
-	background-color: red;
+	background-color: #de333d;
+}
+
+#message {
+	height: 20%;
+	min-width: 100%;
+	text-align: center;
+	font-size: 2.0em;
+	/*background-color: blue;*/
+	margin-bottom: 2%;
+}
+
+#main {
+	text-transform: uppercase;
+}
+.container {
+	margin-top: 10%;
+	border-radius: 10%;
+}
+
+.jumbotron {
+	margin-top: 10%;
 }
