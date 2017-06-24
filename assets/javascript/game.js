@@ -1,23 +1,15 @@
 //set up variables
 var playerList = [
-{
-	name:"Ryan Anderson",
-	picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201583.png"
-},
-{name:"Ryan Anderson",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201583.png"},{name:"Trevor Ariza",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2772.png"},{name:"Patrick Beverley",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201976.png"},{name:"Bobby Brown",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201628.png"},{name:"Clint Capela",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203991.png"},{name:"Sam Dekker",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626155.png"},{name:"Eric Gordon",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201569.png"},{name:"James Harden",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201935.png"},{name:"Montrezl Harrell",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626149.png"},{name:"Isaiah Hartenstein",picture:"http://stats.nba.com/media/img/no-headshot_small.png"},{name:"Nene ",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2403.png"},{name:"Chinanu Onuaku",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627778.png"},{name:"Isaiah Taylor",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627819.png"},{name:"Lou Williams",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/101150.png"},{name:"Troy Williams",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627786.png"},{name:"Kyle Wiltjer",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627787.png"}];
+	{
+		name:"Ryan Anderson",
+		picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201583.png"
+	},
+	{	name:"Trevor Ariza",
+		picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2772.png"
+	},
+	{	name:"Patrick Beverley",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201976.png"},{name:"Bobby Brown",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201628.png"},{name:"Clint Capela",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/203991.png"},{name:"Sam Dekker",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626155.png"},{name:"Eric Gordon",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201569.png"},{name:"James Harden",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/201935.png"},{name:"Montrezl Harrell",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1626149.png"},{name:"Isaiah Hartenstein",picture:"http://stats.nba.com/media/img/no-headshot_small.png"},{name:"Nene ",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/2403.png"},{name:"Chinanu Onuaku",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627778.png"},{name:"Isaiah Taylor",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627819.png"},{name:"Lou Williams",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/101150.png"},{name:"Troy Williams",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627786.png"},{name:"Kyle Wiltjer",picture:"http://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/1627787.png"}];
 
-// var playerList =[
-// 	"James Harden",
-// 	"Yao Ming",
-// 	"Hakeem Olajuwon",
-// 	"Scottie Pippen",
-// 	"Moses Malone",
-// 	"Clyde Drexler",
-// 	"Moochie Norris",
-// 	"Charles Barkley",
-// 	"Tracy McGrady",
-// 	"Calvin Murphy",
-// ];
+
 var currentWord = ""
 var currentGuess = "";
 var numOfGuessLeft = 12;
@@ -36,7 +28,6 @@ var docWins = document.getElementById("wins");
 var docGuesses = document.getElementById("guesses");
 var docMessage = document.getElementById("message");
 
-// newGame();
 
 //set up new game
 function newGame (){
@@ -44,6 +35,7 @@ function newGame (){
 	//select random player
 	player = playerList[Math.floor(Math.random()*playerList.length)];
 	currentWord = player.name.toLowerCase()
+
 	numOfGuessLeft = 8;
 	lettersGuessed = [];
 	guessAllLettersInWord = false;
@@ -130,7 +122,7 @@ function updateScreen(){
 	main.innerHTML = "<p>" + currentGuess + "</p>";
 
 	//show guesses
-	docLetter.innerHTML= "<p>" + lettersGuessed.sort() + "</p>";
+	docLetter.innerHTML= "<p>" + lettersGuessed.sort().join(" ").toUpperCase() + "</p>";
 
 }
 
